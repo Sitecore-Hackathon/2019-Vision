@@ -27,7 +27,9 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 - Upload and browse for the following package “DynamicItemSelectionFeature.zip”
 
-- Choose Overwrite, click Apply to all, and hit Next
+- The following popup appears asking you if you wish to overwrite the default page under Content Manager,click yes.
+
+![overwrite](images/overwrite.png?raw=true "overwrite")
 
 - You are all set now!
 
@@ -48,14 +50,23 @@ To make sure that you have installed your package successfully, you will be able
 On the Files side, the following files, dlls, configurations, and JS files are installed:
 
 1- Hackathon.Feature.DynamicPublish.dll
+
 2- Hackathon.Feature.DynamicPublish.dll
+
 3- Hackathon.Project.Site.dll
+
 4- Hackathon.Feature.DynamicDelete.dll
+
 5- Overwrite to [sitecore instance]\sitecore\shell\Applications\Content Manager\Default.aspx
+
 6- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicDelete.config
+
 7- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicItemsSelection.config
+
 8- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicPublish.config
+
 9- [sitecore instance]\sitecore\shell\Applications\Content Manager\custom-multi-selection.js
+
 
 ## Usage
 

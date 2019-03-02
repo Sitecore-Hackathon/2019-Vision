@@ -58,6 +58,7 @@ There are two main functionalities implemented:
 
 Select the items that you wish to delete, navigate to the home tab, and click on "Delete Selected Items":
 
+![DeletingSelectedItemsFunctionality](images/DeletingSelectedItemsFunctionality.png?raw=true "Deleting Selected Items Functionality")
 
 
 

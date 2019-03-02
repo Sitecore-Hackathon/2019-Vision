@@ -30,14 +30,6 @@ namespace Hackathon.Feature.DynamicDelete.Commands
                 return;
             }
           
-            if (context.Items.Length == 1)
-            {
-                SheerResponse.Eval("if(this.Content && this.Content.loadNextSearchedItem){{this.Content.loadNextSearchedItem('{0}');}}", new object[]
-                {
-                    context.Items[0].ID
-                });
-            }
-
             List<Item> itemsList = new List<Item>();
             foreach (var itemID in itemIDs)
             {

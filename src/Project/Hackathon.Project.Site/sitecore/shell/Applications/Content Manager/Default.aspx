@@ -22,7 +22,7 @@
     <script type="text/JavaScript" src="/sitecore/shell/controls/SitecoreVSplitter.js"></script>
     <script type="text/JavaScript" src="/sitecore/shell/controls/SitecoreWindow.js"></script>
     <script type="text/JavaScript" src="/sitecore/shell/Applications/Content Manager/Content Editor.js"></script>
-	<script type="text/JavaScript" src="/sitecore/shell/Applications/Content Manager/custom-muti-selection.js"></script>
+	<script type="text/JavaScript" src="/sitecore/shell/Applications/Content Manager/custom-multi-selection.js"></script>
     <script type="text/JavaScript" src="/sitecore/shell/Applications/Content Manager/Content Editor.Search.js"></script>
     <script type="text/JavaScript" src="/sitecore/shell/controls/TreeviewEx/TreeviewEx.js"></script>
     <script type="text/JavaScript" src="/sitecore/shell/Controls/Lib/Scriptaculous/Scriptaculous.js"></script>

@@ -105,7 +105,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="sitecore\shell\Applications\Content Manager\custom-muti-selection.js" />
+    <Content Include="sitecore\shell\Applications\Content Manager\custom-multi-selection.js" />
     <Content Include="sitecore\shell\Applications\Content Manager\Default.aspx" />
   </ItemGroup>
   <PropertyGroup>

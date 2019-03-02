@@ -32,7 +32,8 @@ namespace Hackathon.Feature.DynamicPublish.Commands
 
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
 
-            string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; //itemContext.Request.Cookies["sc_selectedItems"].Value;
+            //string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
+            string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
 
             var itemIDs = sc_selectedItems.Split(',');
             Assert.ArgumentNotNull(context, "context");

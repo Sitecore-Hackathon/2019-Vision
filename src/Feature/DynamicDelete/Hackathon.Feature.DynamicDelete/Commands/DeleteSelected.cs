@@ -1,9 +1,12 @@
-﻿using Sitecore.Data.Items;
+﻿using Sitecore.Data;
+using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Shell.Framework;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Web.UI.Sheer;
 using System;
+using System.Collections.Generic;
+
 namespace Hackathon.Feature.DynamicDelete.Commands
 {
     [Serializable]
@@ -15,7 +18,13 @@ namespace Hackathon.Feature.DynamicDelete.Commands
         /// <param name="context">The context.</param>
         public override void Execute(CommandContext context)
         {
-            if (context.Items.Length == 0)
+            System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
+
+           // string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
+            string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
+
+            var itemIDs = sc_selectedItems.Split(',');
+            if (string.IsNullOrEmpty(sc_selectedItems))
             {
                 SheerResponse.Alert("The selected item could not be found.\n\nIt may have been deleted by another user.\n\nSelect another item.", Array.Empty<string>());
                 return;
@@ -27,7 +36,19 @@ namespace Hackathon.Feature.DynamicDelete.Commands
                     context.Items[0].ID
                 });
             }
-            Items.Delete(context.Items);
+
+            List<Item> itemsList = new List<Item>();
+            foreach (var itemID in itemIDs)
+            {
+                //Return Item from Sitecore 
+                Sitecore.Data.Database master =
+                     Sitecore.Configuration.Factory.GetDatabase("master");
+                Item contextItem = master.GetItem(ID.Parse(itemID));
+                itemsList.Add(contextItem);
+            }
+            Items.Delete(itemsList.ToArray());
+
+
         }
 
         /// <summary>

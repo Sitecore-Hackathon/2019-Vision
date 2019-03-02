@@ -62,6 +62,10 @@ Note: that if you select the parent item to be deleted (i.e. Contacts), it will 
 
 ![DeletingSelectedItemsFunctionality](images/DeletingSelectedItemsFunctionality.png?raw=true "Deleting Selected Items Functionality")
 
+If you click on "Delete Selected Items" without selecting any items, the following popup appears asking you to select items and retry:
+
+![PleaseSelectItems](images/PleaseSelectItems.png?raw=true "Please Select Items")
+
 - Publish Selected Items:
 
 Select the items that you wish to publish, navigate to the publish tab, and click on "Publish Selected Items" from the publish menu.

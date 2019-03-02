@@ -72,7 +72,13 @@ Select the items that you wish to publish, navigate to the publish tab, and clic
 
 ![SelectItemsToPublish](images/SelectItemsToPublish.png?raw=true "Select Items To Publish")
 
+Once the publish is complete, the following popup appears showing the number of items processed (published):
 
+![PublishCompletedPopup](images/PublishCompletedPopup.png?raw=true "Publish Completed Popup")
+
+If you click on "Publish Selected Items" without selecting any items, the following popup appears asking you to select items and retry:
+
+![PleaseSelectItemsToPublish](images/PleaseSelectItemsToPublish.png?raw=true "Please Select Items To Publish")
 
 ## Video
 

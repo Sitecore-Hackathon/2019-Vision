@@ -7,6 +7,7 @@ using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using Sitecore.Globalization;
 using Sitecore.Publishing;
+using Sitecore.Shell.Framework;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Sites;
 using Sitecore.Web.UI.Sheer;
@@ -31,44 +32,42 @@ namespace Hackathon.Feature.DynamicPublish.Commands
 
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
 
-            string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80AE0D460C91B4BDBF9FD88340}"; //itemContext.Request.Cookies["sc_selectedItems"].Value;
+            string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; //itemContext.Request.Cookies["sc_selectedItems"].Value;
 
             var itemIDs = sc_selectedItems.Split(',');
-            foreach (var itemID in itemIDs)
+            Assert.ArgumentNotNull(context, "context");
+            if (context.Items.Length == 1)
             {
-                Sitecore.Data.Database master =
-                     Sitecore.Configuration.Factory.GetDatabase("master");
-                Guid itemGuid;
-               Guid.TryParse(itemID,out itemGuid);              
-               Item item = master.GetItem(ID.Parse(itemGuid));
-                Assert.ArgumentNotNull(context, "context");
-                if (context.Items.Length != 1)
+                foreach (var itemID in itemIDs)
                 {
-                    return;
-                }
-                // Item item = context.Items[0];
-                NameValueCollection nameValueCollection = new NameValueCollection();
-                nameValueCollection["id"] = item.ID.ToString();
-                nameValueCollection["language"] = item.Language.ToString();
-                nameValueCollection["version"] = item.Version.ToString();
-                nameValueCollection["workflow"] = "0";
-                nameValueCollection["related"] = context.Parameters["related"];
-                nameValueCollection["subitems"] = context.Parameters["subitems"];
-                nameValueCollection["smart"] = context.Parameters["smart"];
-                Context.ClientPage.Start(this, "Run", nameValueCollection);
-            } 
+                    Sitecore.Data.Database master =
+                     Sitecore.Configuration.Factory.GetDatabase("master");
+                    Guid itemGuid;
+                    Guid.TryParse(itemID, out itemGuid);
+                    Item item = master.GetItem(ID.Parse(itemGuid));
 
-       
+                    // Item item = context.Items[0];
+                    NameValueCollection nameValueCollection = new NameValueCollection();
+                    nameValueCollection["id"] = item.ID.ToString();
+                    nameValueCollection["language"] = item.Language.ToString();
+                    nameValueCollection["version"] = item.Version.ToString();
+                    nameValueCollection["workflow"] = "0";
+                    nameValueCollection["related"] = context.Parameters["related"];
+                    nameValueCollection["subitems"] = context.Parameters["subitems"];
+                    nameValueCollection["smart"] = context.Parameters["smart"];
+                    Context.ClientPage.Start(this, "Run", nameValueCollection);
+                }
+
+            }
         }
 
         /// <summary>
         /// Queries the state of the command.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns></returns>
+        /// <returns>The state of the command.</returns>
         public override CommandState QueryState(CommandContext context)
         {
-            Assert.ArgumentNotNull(context, "context");
             if (context.Items.Length != 1 || !Settings.Publishing.Enabled)
             {
                 return CommandState.Hidden;
@@ -79,14 +78,21 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         /// <summary>
         /// Runs the specified args.
         /// </summary>
-        /// <param name="args">The args.</param>
+        /// <param name="args">The arguments.</param>
         protected void Run(ClientPipelineArgs args)
         {
             Assert.ArgumentNotNull(args, "args");
             string itemPath = args.Parameters["id"];
             string name = args.Parameters["language"];
             string value = args.Parameters["version"];
-            Item item = Client.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
+            if (!SheerResponse.CheckModified(new CheckModifiedParameters
+            {
+                ResumePreviousPipeline = true
+            }))
+            {
+                return;
+            }
+            Item item = Context.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
             if (item == null)
             {
                 SheerResponse.Alert("Item not found.", Array.Empty<string>());
@@ -96,65 +102,11 @@ namespace Hackathon.Feature.DynamicPublish.Commands
             {
                 return;
             }
-            if (!SheerResponse.CheckModified())
+            Log.Audit(this, "Publish item: {0}", new string[]
             {
-                return;
-            }
-            if (args.IsPostBack)
-            {
-                if (args.Result == "yes")
-                {
-                    Database[] targets = PublishSelected.GetTargets();
-                    if (targets.Length == 0)
-                    {
-                        SheerResponse.Alert("No target databases were found for publishing.", Array.Empty<string>());
-                        return;
-                    }
-                    LanguageCollection languages = LanguageManager.GetLanguages(Context.ContentDatabase);
-                    if (languages == null || languages.Count == 0)
-                    {
-                        SheerResponse.Alert("No languages were found for publishing.", Array.Empty<string>());
-                        return;
-                    }
-                    bool publishRelatedItems = args.Parameters["related"] != "0";
-                    bool deep = args.Parameters["subitems"] == "1";
-                    bool compareRevisions = args.Parameters["smart"] != "0";
-                    string message = string.Format("Publish item now: {0}", AuditFormatter.FormatItem(item));
-                    Log.Audit(message, this);
-                    PublishManager.PublishItem(item, targets, languages.ToArray(), deep, compareRevisions, publishRelatedItems);
-                    SheerResponse.Alert("The item is being published.", Array.Empty<string>());
-                    return;
-                }
-            }
-            else
-            {
-                SheerResponse.Confirm(Translate.Text("Are you sure you want to publish \"{0}\"\nin every language to every publishing target?", new object[]
-                {
-                    item.DisplayName
-                }));
-                args.WaitForPostBack();
-            }
-        }
-
-        /// <summary>
-        /// Gets the targets.
-        /// </summary>
-        /// <returns></returns>
-        private static Database[] GetTargets()
-        {
-            Item itemNotNull = Client.GetItemNotNull("/sitecore/system/publishing targets");
-            ArrayList arrayList = new ArrayList();
-            ChildList children = itemNotNull.Children;
-            foreach (Item item in children)
-            {
-                string name = item["Target database"];
-                Database database = Factory.GetDatabase(name, false);
-                if (database != null)
-                {
-                    arrayList.Add(database);
-                }
-            }
-            return Assert.ResultNotNull<Database[]>(arrayList.ToArray(typeof(Database)) as Database[]);
+                AuditFormatter.FormatItem(item)
+            });
+            Items.Publish(item);
         }
 
         /// <summary>
@@ -172,16 +124,8 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                 return true;
             }
             args.Parameters["workflow"] = "1";
-            if (Context.ClientPage.Modified)
-            {
-                args.Parameters["__modified"] = "1";
-            }
             if (args.IsPostBack)
             {
-                if (args.Parameters["__modified"] == "1")
-                {
-                    Context.ClientPage.Modified = true;
-                }
                 if (args.Result == "yes")
                 {
                     args.IsPostBack = false;
@@ -197,7 +141,7 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                 {
                     return true;
                 }
-                IWorkflowProvider workflowProvider = Client.ContentDatabase.WorkflowProvider;
+                IWorkflowProvider workflowProvider = Context.ContentDatabase.WorkflowProvider;
                 if (workflowProvider == null || workflowProvider.GetWorkflows().Length == 0)
                 {
                     return true;

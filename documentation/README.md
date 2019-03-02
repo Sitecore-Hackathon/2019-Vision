@@ -84,7 +84,7 @@ There are two main functionalities implemented:
 
 Select the items that you wish to delete, navigate to the home tab, and click on "Delete Selected Items", a confirmation popup appears, click on ok to delete or cancel to cancel the deletion.
 
-Note: that if you select the parent item to be deleted (i.e. Contacts), it will delete the children as well.
+Note: if you select the parent item to be deleted (i.e. Contacts), it will delete the children as well.
 
 ![DeletingSelectedItemsFunctionality](images/DeletingSelectedItemsFunctionality.png?raw=true "Deleting Selected Items Functionality")
 

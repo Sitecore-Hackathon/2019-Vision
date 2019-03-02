@@ -36,7 +36,7 @@ namespace Hackathon.Feature.DynamicPublish.Commands
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
                 // Return alert to inform the user that no items are selected
-                SheerResponse.Alert("No items have been selected, select items using the check box then retry publish selected items", Array.Empty<string>());
+                SheerResponse.Alert("No items have been selected, please select items using the check box and then click on 'Publish Selected Items'", Array.Empty<string>());
                 return;
             }
 
@@ -108,7 +108,7 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                     Log.Error(ex.Message, this);
                 }
             }
-            SheerResponse.Alert(string.Format("The publish Completed for {0} items", counter), new string[0]);
+            SheerResponse.Alert(string.Format("Publish Completed. Items processed: {0} items", counter), new string[0]);
 
         }
 

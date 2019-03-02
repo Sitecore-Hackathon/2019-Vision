@@ -52,6 +52,15 @@ You can start by navigating to the content editor, click on the “View tab”, 
 
 ![ItemSelectorSelected](images/ItemSelectorSelected.png?raw=true "Item Selector Selected")
 
+There are two main functionalities implemented:
+
+- Delete Selected Items:
+
+Select the items that you wish to delete, navigate to the home tab, and click on "Delete Selected Items":
+
+
+
+
 ## Video
 
 Please provide a video highlighing your Hackathon module submission and provide a link to the video. Either a [direct link](https://www.youtube.com/watch?v=EpNhxW4pNKk) to the video, upload it to this documentation folder or maybe upload it to Youtube...

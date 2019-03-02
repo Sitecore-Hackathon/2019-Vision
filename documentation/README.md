@@ -1,52 +1,34 @@
 # Documentation
 
-The documentation for this years Hackathon must be provided as a readme in Markdown format as part of your submission. 
+Module Purpose:
 
-You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
+From our experience with our clients, one of the challenges they have faced is being able to select multiple items at the same time in order to perform some actions like publishing or deleting.
+In order to enhance Sitecore Content Editor UI, we have extended some functionalities that enables the content author to select multiple items and perform a certain action easily by providing a user-friendly feature to achieve that.
+The main purpose of our module is adding a multi-selection feature for items and implementing two main functionalities in which the user can delete or publish those selected items.
+In the future, we are planning to extend the multi-selection functionality to include more actions.
 
-Examples of things to include are the following.
 
 ## Summary
 
 **Category:** Hackathon Category
 
-What is the purpose of your module? What problem does it solve and how does it do that?
+Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 ## Pre-requisites
 
-Does your module rely on other Sitecore modules or frameworks?
-
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
+- Sitecore 9.1 Initial Release
 
 ## Installation
 
-Provide detailed instructions on how to install the module, and include screenshots where necessary.
+•	Login to your Sitecore instance, and open the Desktop. 
+•	On the Sitecore menu (lower left), click Development Tools, then Installation Wizard.
+•	Upload and browse for the following package “DynamicItemSelectionFeature.zip”
+•	Choose Overwrite, click Apply to all.
+•	You are all set now!
 
-1. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-2. ???
-3. Profit
+To make sure that you have installed your package successfully, you will be able to see the following extended features in the content editor:
 
-## Configuration
-
-How do you configure your module once it is installed? Are there items that need to be updated with settings, or maybe config files need to have keys updated?
-
-Remember you are using Markdown, you can provide code samples too:
-
-```xml
-<?xml version="1.0"?>
-<!--
-  Purpose: Configuration settings for my hackathon module
--->
-<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
-  <sitecore>
-    <settings>
-      <setting name="MyModule.Setting" value="Hackathon" />
-    </settings>
-  </sitecore>
-</configuration>
-```
+- “Item Selector” checkbox under the View tab.
 
 ## Usage
 

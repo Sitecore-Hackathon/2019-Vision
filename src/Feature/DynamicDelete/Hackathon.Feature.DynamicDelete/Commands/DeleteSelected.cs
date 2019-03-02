@@ -9,37 +9,39 @@ using System.Collections.Generic;
 
 namespace Hackathon.Feature.DynamicDelete.Commands
 {
+    /// <summary>
+    /// This class is a command for delete selected items
+    /// </summary>
     [Serializable]
     public class DeleteSelected : Command
     {
-        private Sitecore.Data.Database _master =
-                    Sitecore.Configuration.Factory.GetDatabase("master");
+        private Database _master = Sitecore.Configuration.Factory.GetDatabase("master");
         /// <summary>
         /// Executes the command in the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         public override void Execute(CommandContext context)
         {
-            System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
+            // Get selected items ids for the cookies
+            string sc_selectedItems = System.Web.HttpContext.Current.Request.Cookies["sc_selectedItems"].Value;
 
-            // string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
-            string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
-
-            var itemIDs = sc_selectedItems.Split(',');
+            // Check if there is no item selected
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
+                // Return alert to inform the user that no items are selected
                 SheerResponse.Alert("No items have been selected, select items using the check box then retry Delete selected items", Array.Empty<string>());
                 return;
             }
 
             List<Item> itemsList = new List<Item>();
+            var itemIDs = sc_selectedItems.Split(',');
             foreach (var itemID in itemIDs)
             {
-                //Return Item from Sitecore 
-
+                // Get selected item by id 
                 Item contextItem = _master.GetItem(ID.Parse(itemID));
                 itemsList.Add(contextItem);
             }
+
             Items.Delete(itemsList.ToArray());
         }
 

@@ -10,6 +10,7 @@ using Sitecore.Publishing;
 using Sitecore.Shell.Framework;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Sites;
+using Sitecore.Text;
 using Sitecore.Web.UI.Sheer;
 using Sitecore.Workflows;
 using System;
@@ -33,24 +34,23 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         public override void Execute(CommandContext context)
         {
 
-            System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
-            //string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
+            //Retun selected items from cookies
+            System.Web.HttpContext itemContext = System.Web.HttpContext.Current;         
             string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
+
+            //Validate existing items
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
                 SheerResponse.Alert("No items have been selected, select items using the check box then retry publish selected items", Array.Empty<string>());
                 return;
             }
-
             var itemIDs = sc_selectedItems.Split(',');
-            Assert.ArgumentNotNull(context, "context");
-
             List<NameValueCollection> NameValueCollectionList = new List<NameValueCollection>();
+
+            //Start collecting the items to be published
             foreach (var itemID in itemIDs)
             {
                 Item item = _master.GetItem(ID.Parse(itemID));
-
-                // Item item = context.Items[0];
                 NameValueCollection nameValueCollection = new NameValueCollection();
                 nameValueCollection["id"] = item.ID.ToString();
                 nameValueCollection["language"] = item.Language.ToString();
@@ -60,9 +60,6 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                 nameValueCollection["subitems"] = context.Parameters["subitems"];
                 nameValueCollection["smart"] = context.Parameters["smart"];
                 NameValueCollectionList.Add(nameValueCollection);
-              
-           // Context.ClientPage.Start(this, "Run", nameValueCollection);
-              //  PublishClientPage.Start(this, "Run", NameValueCollectionList);
             }
             Run(NameValueCollectionList);
             
@@ -88,10 +85,9 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         /// <param name="args">The arguments.</param>
         protected void Run(List<NameValueCollection> args)
         {
-          
             Assert.ArgumentNotNull(args, "args");
-            
-            foreach(var Parameters in args)
+            UrlString urlString = new UrlString("/sitecore/shell/Applications/Publish.aspx");
+            foreach (var Parameters in args)
             {
                 string itemPath = Parameters["id"];
                 string name = Parameters["language"];
@@ -102,77 +98,13 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                     SheerResponse.Alert("Item not found.", Array.Empty<string>());
                     return;
                 }
-             
-                Items.Publish(item);
+                    Assert.ArgumentNotNull(item, "item");
+                    SheerResponse.CheckModified(false);
+                   
+                    urlString.Append("id", item.ID.ToString());
             }
-
-   
+            SheerResponse.Broadcast(SheerResponse.ShowModalDialog(urlString.ToString()), "Shell");
         }
-
-        /// <summary>
-        /// Checks the workflow.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <param name="item">The item.</param>
-        /// <returns>The workflow.</returns>
-        private static bool CheckWorkflow(ClientPipelineArgs args, Item item)
-        {
-            Assert.ArgumentNotNull(args, "args");
-            Assert.ArgumentNotNull(item, "item");
-            if (args.Parameters["workflow"] == "1")
-            {
-                return true;
-            }
-            args.Parameters["workflow"] = "1";
-            if (args.IsPostBack)
-            {
-                if (args.Result == "yes")
-                {
-                    args.IsPostBack = false;
-                    return true;
-                }
-                args.AbortPipeline();
-                return false;
-            }
-            else
-            {
-                SiteContext site = Factory.GetSite("publisher");
-                if (site != null && !site.EnableWorkflow)
-                {
-                    return true;
-                }
-                IWorkflowProvider workflowProvider = Context.ContentDatabase.WorkflowProvider;
-                if (workflowProvider == null || workflowProvider.GetWorkflows().Length == 0)
-                {
-                    return true;
-                }
-                IWorkflow workflow = workflowProvider.GetWorkflow(item);
-                if (workflow == null)
-                {
-                    return true;
-                }
-                WorkflowState state = workflow.GetState(item);
-                if (state == null)
-                {
-                    return true;
-                }
-                if (state.FinalState)
-                {
-                    return true;
-                }
-                args.Parameters["workflow"] = "0";
-                if (state.PreviewPublishingTargets.Any<string>())
-                {
-                    return true;
-                }
-                SheerResponse.Confirm(Translate.Text("The current item \"{0}\" is in the workflow state \"{1}\"\nand will not be published.\n\nAre you sure you want to publish?", new object[]
-                {
-                    item.DisplayName,
-                    state.DisplayName
-                }));
-                args.WaitForPostBack();
-                return false;
-            }
-        }
+      
     }
 }

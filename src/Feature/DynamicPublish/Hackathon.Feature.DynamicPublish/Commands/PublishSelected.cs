@@ -20,7 +20,8 @@ namespace Hackathon.Feature.DynamicPublish.Commands
     public class PublishSelected : Command
     {
         private Sitecore.Data.Database _master = Sitecore.Configuration.Factory.GetDatabase("master");
-        
+        private Sitecore.Data.Database _web = Sitecore.Configuration.Factory.GetDatabase("web");
+
         /// <summary>
         /// Executes the command in the specified context.
         /// </summary>
@@ -82,25 +83,34 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         protected void PublishMultiItems(List<NameValueCollection> args)
         {
             Assert.ArgumentNotNull(args, "args");
-            UrlString urlString = new UrlString("/sitecore/shell/Applications/Publish.aspx");
+
+            Database[] databases = new Database[1] { _web };
+            int counter = 0;
             foreach (var Parameters in args)
             {
-                string itemPath = Parameters["id"];
-                string name = Parameters["language"];
-                string value = Parameters["version"];
-                Item item = Context.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
-                if (item == null)
+                try
                 {
-                    SheerResponse.Alert("Item not found.", Array.Empty<string>());
-                    return;
+                    string itemPath = Parameters["id"];
+                    string name = Parameters["language"];
+                    string value = Parameters["version"];
+
+                    Item item = Context.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
+
+                    if (item == null)
+                    {
+                        continue;
+                    }
+                    Sitecore.Publishing.PublishManager.PublishItem(item, databases, _web.Languages, true, false);
+                    counter++;
                 }
-                    Assert.ArgumentNotNull(item, "item");
-                    SheerResponse.CheckModified(false);
-                   
-                    urlString.Append("id", item.ID.ToString());
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message, this);
+                }
             }
-            SheerResponse.Broadcast(SheerResponse.ShowModalDialog(urlString.ToString()), "Shell");
+            SheerResponse.Alert(string.Format("The publish Completed for {0} items", counter), new string[0]);
+
         }
-      
+
     }
 }

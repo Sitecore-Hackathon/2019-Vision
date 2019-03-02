@@ -94,6 +94,8 @@ If you click on "Delete Selected Items" without selecting any items, the followi
 
 - Publish Selected Items:
 
+Note: Before publishing any item, make sure that this item is in the final worklow (approved).
+
 Select the items that you wish to publish, navigate to the publish tab, and click on "Publish Selected Items" from the publish menu.
 
 ![SelectItemsToPublish](images/SelectItemsToPublish.png?raw=true "Select Items To Publish")

@@ -25,7 +25,7 @@ namespace Hackathon.Feature.DynamicDelete.Commands
             // Get selected items ids for the cookies
             string sc_selectedItems = System.Web.HttpContext.Current.Request.Cookies["sc_selectedItems"].Value;
 
-            // Check if there is no item selected
+            // Check if there is item selected
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
                 // Return alert to inform the user that no items are selected

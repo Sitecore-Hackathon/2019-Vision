@@ -1,51 +1,48 @@
 ﻿using Sitecore;
-using Sitecore.Collections;
 using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using Sitecore.Globalization;
-using Sitecore.Publishing;
-using Sitecore.Shell.Framework;
 using Sitecore.Shell.Framework.Commands;
-using Sitecore.Sites;
 using Sitecore.Text;
 using Sitecore.Web.UI.Sheer;
-using Sitecore.Workflows;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 
 namespace Hackathon.Feature.DynamicPublish.Commands
 {
-
+    /// <summary>
+    /// This class is a command for publish selected items
+    /// </summary>
     [Serializable]
     public class PublishSelected : Command
     {
-        private Sitecore.Data.Database _master =
-                    Sitecore.Configuration.Factory.GetDatabase("master");
+        private Sitecore.Data.Database _master = Sitecore.Configuration.Factory.GetDatabase("master");
+        
         /// <summary>
         /// Executes the command in the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         public override void Execute(CommandContext context)
         {
-
-            //Retun selected items from cookies
+            // Get selected items ids for the cookies
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;         
             string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
 
-            //Validate existing items
+            // Check if there is item selected
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
+                // Return alert to inform the user that no items are selected
                 SheerResponse.Alert("No items have been selected, select items using the check box then retry publish selected items", Array.Empty<string>());
                 return;
             }
-            var itemIDs = sc_selectedItems.Split(',');
+
+
+
             List<NameValueCollection> NameValueCollectionList = new List<NameValueCollection>();
+            var itemIDs = sc_selectedItems.Split(',');
 
             //Start collecting the items to be published
             foreach (var itemID in itemIDs)
@@ -61,8 +58,7 @@ namespace Hackathon.Feature.DynamicPublish.Commands
                 nameValueCollection["smart"] = context.Parameters["smart"];
                 NameValueCollectionList.Add(nameValueCollection);
             }
-            Run(NameValueCollectionList);
-            
+            PublishMultiItems(NameValueCollectionList);  
         }
 
         /// <summary>
@@ -80,10 +76,10 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         }
 
         /// <summary>
-        /// Runs the specified args.
+        /// Publish the multiple items
         /// </summary>
-        /// <param name="args">The arguments.</param>
-        protected void Run(List<NameValueCollection> args)
+        /// <param name="args">The arguments is a list of items need to be publish</param>
+        protected void PublishMultiItems(List<NameValueCollection> args)
         {
             Assert.ArgumentNotNull(args, "args");
             UrlString urlString = new UrlString("/sitecore/shell/Applications/Publish.aspx");

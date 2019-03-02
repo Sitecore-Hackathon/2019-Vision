@@ -9,6 +9,10 @@ namespace Hackathon.Feature.DynamicItemsSelection.Commands
     [Serializable]
     public class ToggleItemSelector : Command
     {
+        /// <summary>
+        /// Executes the command in the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public override void Execute(CommandContext context)
         {
 

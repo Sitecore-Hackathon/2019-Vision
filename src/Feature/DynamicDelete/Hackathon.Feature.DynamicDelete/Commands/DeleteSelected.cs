@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Hackathon.Feature.DynamicDelete.Commands
 {
     /// <summary>
-    /// This class is a command for delete selected items
+    /// This class is a command for deleting selected items
     /// </summary>
     [Serializable]
     public class DeleteSelected : Command
@@ -22,14 +22,14 @@ namespace Hackathon.Feature.DynamicDelete.Commands
         /// <param name="context">The context.</param>
         public override void Execute(CommandContext context)
         {
-            // Get selected items ids for the cookies
+            // Get selected items ids for the cookie
             string sc_selectedItems = System.Web.HttpContext.Current.Request.Cookies["sc_selectedItems"].Value;
 
-            // Check if there is item selected
+            // Check if there are any items selected
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
-                // Return alert to inform the user that no items are selected
-                SheerResponse.Alert("No items have been selected, select items using the check box then retry Delete selected items", Array.Empty<string>());
+                // Show an alert to inform the user that there are no items selected
+                SheerResponse.Alert("No items have been selected, please select items using the check box and then click on 'Delete selected items'", Array.Empty<string>());
                 return;
             }
 

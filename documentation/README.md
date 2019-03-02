@@ -52,6 +52,26 @@ You can start by navigating to the content editor, click on the “View tab”, 
 
 ![ItemSelectorSelected](images/ItemSelectorSelected.png?raw=true "Item Selector Selected")
 
+There are two main functionalities implemented:
+
+- Delete Selected Items:
+
+Select the items that you wish to delete, navigate to the home tab, and click on "Delete Selected Items", a confirmation popup appears, click on ok to delete or cancel to cancel the deletion.
+
+Note: that if you select the parent item to be deleted (i.e. Contacts), it will delete the children as well.
+
+![DeletingSelectedItemsFunctionality](images/DeletingSelectedItemsFunctionality.png?raw=true "Deleting Selected Items Functionality")
+
+If you click on "Delete Selected Items" without selecting any items, the following popup appears asking you to select items and retry:
+
+![PleaseSelectItems](images/PleaseSelectItems.png?raw=true "Please Select Items")
+
+- Publish Selected Items:
+
+Select the items that you wish to publish, navigate to the publish tab, and click on "Publish Selected Items" from the publish menu.
+
+
+
 ## Video
 
 Please provide a video highlighing your Hackathon module submission and provide a link to the video. Either a [direct link](https://www.youtube.com/watch?v=EpNhxW4pNKk) to the video, upload it to this documentation folder or maybe upload it to Youtube...

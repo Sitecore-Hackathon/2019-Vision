@@ -10,7 +10,7 @@ In the future, we are planning to extend the multi-selection functionality to in
 
 ## Summary
 
-**Category:** Hackathon Category
+**Category:** 
 
 Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 

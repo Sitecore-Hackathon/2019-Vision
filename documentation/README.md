@@ -40,7 +40,7 @@ To make sure that you have installed your package successfully, you will be able
 
 ![Hackathon Logo](images/DeleteSelectedItems.png?raw=true "Delete Selected Items Button")
 
-- “Publish Selected Items” under the Publish tab in the publish menu:
+- “Publish Selected Items” button under the Publish tab in the publish menu:
 
 ![Hackathon Logo](images/PublishSelectedItems.png?raw=true "Publish Selected Items Button")
 

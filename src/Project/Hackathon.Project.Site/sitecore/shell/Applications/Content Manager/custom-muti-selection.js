@@ -7,7 +7,7 @@ function reInitializeMultiItemsSelector() {
         var allTreeNode = document.querySelectorAll('div.scContentTreeNodeGutter')
 
         allTreeNode.forEach(element => {
-            var checkboxElement = element.parentNode.querySelector('#' + 'item-selector-' + element.id);
+            var checkboxElement = element.parentNode.querySelector('#' + 'item-selector-' + ParseCheckboxItemID(element.id));
             if (!checkboxElement) {
                 createCheckBoxSelectorItem(element, false);
             }

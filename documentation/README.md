@@ -36,6 +36,14 @@ To make sure that you have installed your package successfully, you will be able
 
 ![Hackathon Logo](images/ItemSelectorCheckbox.png?raw=true "Item Selector Checkbox")
 
+- “Delete Selected Items” button under the Home tab.
+
+![Hackathon Logo](images/DeleteSelectedItems.png?raw=true "Delete Selected Items Button")
+
+- “Publish Selected Items” under the Publish tab in the publish menu:
+
+![Hackathon Logo](images/PublishSelectedItems.png?raw=true "Publish Selected Items Button")
+
 ## Usage
 
 Provide documentation  about your module, how do the users use your module, where are things located, what do icons mean, are there any secret shortcuts etc.

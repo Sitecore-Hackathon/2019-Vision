@@ -27,7 +27,7 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 - Upload and browse for the following package “DynamicItemSelectionFeature.zip”
 
-- Choose Overwrite, click Apply to all.
+- Choose Overwrite, click Apply to all, and hit Next
 
 - You are all set now!
 

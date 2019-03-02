@@ -192,6 +192,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Config\Include\Feature\Hackathon.Feature.DynamicItemsSelection.config" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

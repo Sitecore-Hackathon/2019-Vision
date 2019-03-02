@@ -29,14 +29,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D27C83
 		documentation\images\hackathon.png = documentation\images\hackathon.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Feature.DynamicItemsSelection", "src\Feature\DynamicItemsSelection\Hackathon.Feature.DynamicItemsSelection\Hackathon.Feature.DynamicItemsSelection.csproj", "{81B61972-FFC7-436A-816D-29681A18BDA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Feature.DynamicDelete", "src\Feature\DynamicDelete\Hackathon.Feature.DynamicDelete\Hackathon.Feature.DynamicDelete.csproj", "{A2C9166D-6C2C-4410-AE25-887997E3271E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Feature.DynamicPublish", "src\Feature\DynamicPublish\Hackathon.Feature.DynamicPublish\Hackathon.Feature.DynamicPublish.csproj", "{310BE174-7E6A-4C3F-BD2B-5B37478A9041}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81B61972-FFC7-436A-816D-29681A18BDA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B61972-FFC7-436A-816D-29681A18BDA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B61972-FFC7-436A-816D-29681A18BDA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B61972-FFC7-436A-816D-29681A18BDA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2C9166D-6C2C-4410-AE25-887997E3271E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2C9166D-6C2C-4410-AE25-887997E3271E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2C9166D-6C2C-4410-AE25-887997E3271E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2C9166D-6C2C-4410-AE25-887997E3271E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310BE174-7E6A-4C3F-BD2B-5B37478A9041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310BE174-7E6A-4C3F-BD2B-5B37478A9041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310BE174-7E6A-4C3F-BD2B-5B37478A9041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310BE174-7E6A-4C3F-BD2B-5B37478A9041}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D27C83D2-2EAF-4E44-A1ED-2B3C2EBB5854} = {DAFED8F5-6CBD-4384-AAD6-DC3BCCF24911}
+		{81B61972-FFC7-436A-816D-29681A18BDA1} = {17DD5718-6E13-4F2C-9738-B410396D4552}
+		{A2C9166D-6C2C-4410-AE25-887997E3271E} = {17DD5718-6E13-4F2C-9738-B410396D4552}
+		{310BE174-7E6A-4C3F-BD2B-5B37478A9041} = {17DD5718-6E13-4F2C-9738-B410396D4552}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Configuration.6.0.1304.0\lib\NET45
 		SolutionGuid = {311DA37D-528B-43B2-A99B-E7253F841D46}
 	EndGlobalSection
 EndGlobal

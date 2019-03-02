@@ -1,6 +1,6 @@
 # Documentation
 
-Module Purpose:
+**Module Purpose:**
 
 From our experience with our clients, one of the challenges they have faced is being able to select multiple items at the same time in order to perform some actions like publishing or deleting.
 In order to enhance Sitecore Content Editor UI, we have extended some functionalities that enables the content author to select multiple items and perform a certain action easily by providing a user-friendly feature to achieve that.

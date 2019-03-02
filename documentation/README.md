@@ -29,6 +29,8 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 - The following popup appears asking you if you wish to overwrite the default page under Content Manager,click yes.
 
+**Note: We only added a reference to a custom js file in the default page.. For future releases, we are planning to change that.**
+
 ![overwrite](images/overwrite.png?raw=true "overwrite")
 
 - You are all set now!

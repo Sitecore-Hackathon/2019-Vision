@@ -26,9 +26,10 @@ namespace Hackathon.Feature.DynamicDelete.Commands
             var itemIDs = sc_selectedItems.Split(',');
             if (string.IsNullOrEmpty(sc_selectedItems))
             {
-                SheerResponse.Alert("The selected item could not be found.\n\nIt may have been deleted by another user.\n\nSelect another item.", Array.Empty<string>());
+                SheerResponse.Alert("No items have been selected, select items using the check box then retry Delete selected items", Array.Empty<string>());
                 return;
             }
+          
             if (context.Items.Length == 1)
             {
                 SheerResponse.Eval("if(this.Content && this.Content.loadNextSearchedItem){{this.Content.loadNextSearchedItem('{0}');}}", new object[]

@@ -34,6 +34,11 @@ namespace Hackathon.Feature.DynamicPublish.Commands
 
             //string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
             string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
+            if (string.IsNullOrEmpty(sc_selectedItems))
+            {
+                SheerResponse.Alert("No items have been selected, select items using the check box then retry publish selected items", Array.Empty<string>());
+                return;
+            }
 
             var itemIDs = sc_selectedItems.Split(',');
             Assert.ArgumentNotNull(context, "context");

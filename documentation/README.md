@@ -20,15 +20,15 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 ## Installation
 
-•	Login to your Sitecore instance, and open the Desktop. 
+- Login to your Sitecore instance, and open the Desktop. 
 
-•	On the Sitecore menu (lower left), click Development Tools, then Installation Wizard.
+- On the Sitecore menu (lower left), click Development Tools, then Installation Wizard.
 
-•	Upload and browse for the following package “DynamicItemSelectionFeature.zip”
+- Upload and browse for the following package “DynamicItemSelectionFeature.zip”
 
-•	Choose Overwrite, click Apply to all.
+- Choose Overwrite, click Apply to all.
 
-•	You are all set now!
+- You are all set now!
 
 To make sure that you have installed your package successfully, you will be able to see the following extended features in the content editor:
 

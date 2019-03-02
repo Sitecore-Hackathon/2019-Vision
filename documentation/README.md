@@ -46,11 +46,7 @@ To make sure that you have installed your package successfully, you will be able
 
 ## Usage
 
-Provide documentation  about your module, how do the users use your module, where are things located, what do icons mean, are there any secret shortcuts etc.
-
-Please include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
-
-![Hackathon Logo](images/hackathon.png?raw=true "Hackathon Logo")
+In order to be able to use our module, install the following package using Sitecore Installation Wizard: “DynamicItemSelectionFeature.zip”.
 
 You can embed images of different formats too:
 

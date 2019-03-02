@@ -27,7 +27,9 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 - Upload and browse for the following package “DynamicItemSelectionFeature.zip”
 
-- Choose Overwrite, click Apply to all, and hit Next
+- The following popup appears asking you if you wish to overwrite the default page under Content Manager,click yes.
+
+![overwrite](images/overwrite.png?raw=true "overwrite")
 
 - You are all set now!
 

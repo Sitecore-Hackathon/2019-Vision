@@ -14,6 +14,7 @@ using Sitecore.Web.UI.Sheer;
 using Sitecore.Workflows;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -23,6 +24,8 @@ namespace Hackathon.Feature.DynamicPublish.Commands
     [Serializable]
     public class PublishSelected : Command
     {
+        private Sitecore.Data.Database _master =
+                    Sitecore.Configuration.Factory.GetDatabase("master");
         /// <summary>
         /// Executes the command in the specified context.
         /// </summary>
@@ -31,7 +34,6 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         {
 
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
-
             //string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
             string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
             if (string.IsNullOrEmpty(sc_selectedItems))
@@ -42,29 +44,28 @@ namespace Hackathon.Feature.DynamicPublish.Commands
 
             var itemIDs = sc_selectedItems.Split(',');
             Assert.ArgumentNotNull(context, "context");
-            if (context.Items.Length == 1)
+
+            List<NameValueCollection> NameValueCollectionList = new List<NameValueCollection>();
+            foreach (var itemID in itemIDs)
             {
-                foreach (var itemID in itemIDs)
-                {
-                    Sitecore.Data.Database master =
-                     Sitecore.Configuration.Factory.GetDatabase("master");
-                    Guid itemGuid;
-                    Guid.TryParse(itemID, out itemGuid);
-                    Item item = master.GetItem(ID.Parse(itemGuid));
+                Item item = _master.GetItem(ID.Parse(itemID));
 
-                    // Item item = context.Items[0];
-                    NameValueCollection nameValueCollection = new NameValueCollection();
-                    nameValueCollection["id"] = item.ID.ToString();
-                    nameValueCollection["language"] = item.Language.ToString();
-                    nameValueCollection["version"] = item.Version.ToString();
-                    nameValueCollection["workflow"] = "0";
-                    nameValueCollection["related"] = context.Parameters["related"];
-                    nameValueCollection["subitems"] = context.Parameters["subitems"];
-                    nameValueCollection["smart"] = context.Parameters["smart"];
-                    Context.ClientPage.Start(this, "Run", nameValueCollection);
-                }
-
+                // Item item = context.Items[0];
+                NameValueCollection nameValueCollection = new NameValueCollection();
+                nameValueCollection["id"] = item.ID.ToString();
+                nameValueCollection["language"] = item.Language.ToString();
+                nameValueCollection["version"] = item.Version.ToString();
+                nameValueCollection["workflow"] = "0";
+                nameValueCollection["related"] = context.Parameters["related"];
+                nameValueCollection["subitems"] = context.Parameters["subitems"];
+                nameValueCollection["smart"] = context.Parameters["smart"];
+                NameValueCollectionList.Add(nameValueCollection);
+              
+           // Context.ClientPage.Start(this, "Run", nameValueCollection);
+              //  PublishClientPage.Start(this, "Run", NameValueCollectionList);
             }
+            Run(NameValueCollectionList);
+            
         }
 
         /// <summary>
@@ -85,34 +86,27 @@ namespace Hackathon.Feature.DynamicPublish.Commands
         /// Runs the specified args.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        protected void Run(ClientPipelineArgs args)
+        protected void Run(List<NameValueCollection> args)
         {
+          
             Assert.ArgumentNotNull(args, "args");
-            string itemPath = args.Parameters["id"];
-            string name = args.Parameters["language"];
-            string value = args.Parameters["version"];
-            if (!SheerResponse.CheckModified(new CheckModifiedParameters
+            
+            foreach(var Parameters in args)
             {
-                ResumePreviousPipeline = true
-            }))
-            {
-                return;
+                string itemPath = Parameters["id"];
+                string name = Parameters["language"];
+                string value = Parameters["version"];
+                Item item = Context.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
+                if (item == null)
+                {
+                    SheerResponse.Alert("Item not found.", Array.Empty<string>());
+                    return;
+                }
+             
+                Items.Publish(item);
             }
-            Item item = Context.ContentDatabase.Items[itemPath, Language.Parse(name), Sitecore.Data.Version.Parse(value)];
-            if (item == null)
-            {
-                SheerResponse.Alert("Item not found.", Array.Empty<string>());
-                return;
-            }
-            if (!PublishSelected.CheckWorkflow(args, item))
-            {
-                return;
-            }
-            Log.Audit(this, "Publish item: {0}", new string[]
-            {
-                AuditFormatter.FormatItem(item)
-            });
-            Items.Publish(item);
+
+   
         }
 
         /// <summary>

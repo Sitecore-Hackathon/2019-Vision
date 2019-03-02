@@ -25,7 +25,7 @@ Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
 
 - On the Sitecore menu (lower left), click Development Tools, then Installation Wizard.
 
-- Upload and browse for the following package “DynamicItemSelectionFeature.zip”
+- Upload and browse for the following package “DynamicItemSelectionFeatures.zip”
 
 - The following popup appears asking you if you wish to overwrite the default page under Content Manager,click yes.
 
@@ -70,7 +70,7 @@ On the Files side, the following files, dlls, configurations, and JS files are i
 
 ## Usage
 
-In order to be able to use our module, install the following package using Sitecore Installation Wizard: “DynamicItemSelectionFeature.zip”.
+In order to be able to use our module, install the following package using Sitecore Installation Wizard: “DynamicItemSelectionFeatures.zip”.
 
 You can start by navigating to the content editor, click on the “View tab”, and check the “Item Selector” checkbox in order to view the checkboxes next to the items in the content tree:
 

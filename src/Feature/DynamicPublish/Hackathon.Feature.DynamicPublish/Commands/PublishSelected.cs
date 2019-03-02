@@ -16,7 +16,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 
-namespace Hackathon.Feature.DynamicPublish.Framework.Commands
+namespace Hackathon.Feature.DynamicPublish.Commands
 {
 
     [Serializable]
@@ -31,14 +31,16 @@ namespace Hackathon.Feature.DynamicPublish.Framework.Commands
 
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
 
-            string sc_selectedItems = "{6FD0AAC1-1ADE-4E3B-9EF2-7C8E0E419C0D},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; //itemContext.Request.Cookies["sc_selectedItems"].Value;
+            string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80AE0D460C91B4BDBF9FD88340}"; //itemContext.Request.Cookies["sc_selectedItems"].Value;
 
             var itemIDs = sc_selectedItems.Split(',');
             foreach (var itemID in itemIDs)
             {
                 Sitecore.Data.Database master =
                      Sitecore.Configuration.Factory.GetDatabase("master");
-                Item item = master.GetItem(ID.Parse(itemID));
+                Guid itemGuid;
+               Guid.TryParse(itemID,out itemGuid);              
+               Item item = master.GetItem(ID.Parse(itemGuid));
                 Assert.ArgumentNotNull(context, "context");
                 if (context.Items.Length != 1)
                 {

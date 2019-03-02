@@ -12,6 +12,8 @@ namespace Hackathon.Feature.DynamicDelete.Commands
     [Serializable]
     public class DeleteSelected : Command
     {
+        private Sitecore.Data.Database _master =
+                    Sitecore.Configuration.Factory.GetDatabase("master");
         /// <summary>
         /// Executes the command in the specified context.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Hackathon.Feature.DynamicDelete.Commands
         {
             System.Web.HttpContext itemContext = System.Web.HttpContext.Current;
 
-           // string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
+            // string sc_selectedItems = "{1BAB6C8F-6442-4A8E-867B-725C6A4C98F8},{CD3EAF80-AE0D-460C-91B4-BDBF9FD88340}"; 
             string sc_selectedItems = itemContext.Request.Cookies["sc_selectedItems"].Value;
 
             var itemIDs = sc_selectedItems.Split(',');
@@ -29,19 +31,16 @@ namespace Hackathon.Feature.DynamicDelete.Commands
                 SheerResponse.Alert("No items have been selected, select items using the check box then retry Delete selected items", Array.Empty<string>());
                 return;
             }
-          
+
             List<Item> itemsList = new List<Item>();
             foreach (var itemID in itemIDs)
             {
                 //Return Item from Sitecore 
-                Sitecore.Data.Database master =
-                     Sitecore.Configuration.Factory.GetDatabase("master");
-                Item contextItem = master.GetItem(ID.Parse(itemID));
+
+                Item contextItem = _master.GetItem(ID.Parse(itemID));
                 itemsList.Add(contextItem);
             }
             Items.Delete(itemsList.ToArray());
-
-
         }
 
         /// <summary>

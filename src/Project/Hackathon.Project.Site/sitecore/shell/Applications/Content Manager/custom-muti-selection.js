@@ -52,6 +52,9 @@ function setSelectedTreeItems() {
 
         cookies += input.id.replace('item-selector-', '') + ',';
     });
+    if (cookies.length > 0) {
+        cookies = cookies.substring(0, cookies.length - 1);
+    }
 
     setCookie('sc_selectedItems', cookies,10);
 }

@@ -34,27 +34,23 @@ To make sure that you have installed your package successfully, you will be able
 
 - “Item Selector” checkbox under the View tab.
 
-![Hackathon Logo](images/ItemSelectorCheckbox.png?raw=true "Item Selector Checkbox")
+![ItemSelectorCheckbox](images/ItemSelectorCheckbox.png?raw=true "Item Selector Checkbox")
 
 - “Delete Selected Items” button under the Home tab.
 
-![Hackathon Logo](images/DeleteSelectedItems.png?raw=true "Delete Selected Items Button")
+![DeleteSelectedItems](images/DeleteSelectedItems.png?raw=true "Delete Selected Items Button")
 
 - “Publish Selected Items” button under the Publish tab in the publish menu:
 
-![Hackathon Logo](images/PublishSelectedItems.png?raw=true "Publish Selected Items Button")
+![PublishSelectedItems](images/PublishSelectedItems.png?raw=true "Publish Selected Items Button")
 
 ## Usage
 
 In order to be able to use our module, install the following package using Sitecore Installation Wizard: “DynamicItemSelectionFeature.zip”.
 
-You can embed images of different formats too:
+You can start by navigating to the content editor, click on the “View tab”, and check the “Item Selector” checkbox in order to view the checkboxes next to the items in the content tree:
 
-![Deal With It](images/deal-with-it.gif?raw=true "Deal With It")
-
-And you can embed external images too:
-
-![Random](https://placeimg.com/480/240/any "Random")
+![ItemSelectorSelected](images/ItemSelectorSelected.png?raw=true "Item Selector Selected")
 
 ## Video
 

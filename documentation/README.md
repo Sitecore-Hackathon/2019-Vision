@@ -112,4 +112,4 @@ If you click on "Publish Selected Items" without selecting any items, the follow
 
 Following is a youtube video that explains our feature:
 
-[![Sitecore Hackathon Video Embedding Alt Text](https://img.youtube.com/vi/EpNhxW4pNKk/0.jpg)](https://www.youtube.com/watch?v=C0EEo8V9PUI)
+[![Sitecore Hackathon Video Embedding Alt Text](https://img.youtube.com/vi/C0EEo8V9PUI/0.jpg)](https://www.youtube.com/watch?v=C0EEo8V9PUI)

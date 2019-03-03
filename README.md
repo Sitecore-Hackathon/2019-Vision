@@ -1,38 +1,115 @@
-![Hackathon Logo](documentation/images/hackathon.png?raw=true "Hackathon Logo")
+# Documentation
 
-# Submission Boilerplate
+**Module Purpose:**
 
-Welcome to Sitecore Hackathon 2019.
+From our experience with our clients, one of the challenges they have faced is being able to select multiple items at the same time in order to perform some actions like publishing or deleting.
+In order to enhance Sitecore Content Editor UI, we have extended some functionalities that enables the content author to select multiple items and perform a certain action easily by providing a user-friendly feature to achieve that.
 
-The Hackathon site can be found at http://www.sitecorehackathon.org/sitecore-hackathon-2019/
+The main purpose of our module is adding a multi-selection feature for items and implementing two main functionalities in which the user can delete or publish those selected items.
+In the future, we are planning to extend the multi-selection functionality to include more actions.
 
-The purpose of this repository is to provide a sample which shows how to structure the Hackathon submissions.
+
+## Summary
+
+**Category:** 
+
+Best enhancement to the Sitecore Admin (XP) UI for Content Editors & Marketers
+
+## Pre-requisites
+
+- Sitecore 9.1 Initial Release
+
+## Installation
+
+- Login to your Sitecore instance, and open the Desktop. 
+
+- On the Sitecore menu (lower left), click Development Tools, then Installation Wizard.
+
+- Upload and browse for the following package “DynamicItemSelectionFeatures.zip”
+
+- The following popup appears asking you if you wish to overwrite the default page under Content Manager,click yes.
+
+**Note: We only added a reference to a custom js file in the default page.. For future releases, we are planning to change that.**
+
+![overwrite](documentation/images/overwrite.png?raw=true "overwrite")
+
+- You are all set now!
+
+To make sure that you have installed your package successfully, you will be able to see the following extended features in the content editor:
+
+- “Item Selector” checkbox under the View tab.
+
+![ItemSelectorCheckbox](documentation/images/ItemSelectorCheckbox.png?raw=true "Item Selector Checkbox")
+
+- “Delete Selected Items” button under the Home tab.
+
+![DeleteSelectedItems](documentation/images/DeleteSelectedItems.png?raw=true "Delete Selected Items Button")
+
+- “Publish Selected Items” button under the Publish tab in the publish menu:
+
+![PublishSelectedItems](documentation/images/PublishSelectedItems.png?raw=true "Publish Selected Items Button")
+
+On the Files side, the following files, dlls, configurations, and JS files are installed:
+
+1- Hackathon.Feature.DynamicPublish.dll
+
+2- Hackathon.Feature.DynamicPublish.dll
+
+3- Hackathon.Project.Site.dll
+
+4- Hackathon.Feature.DynamicDelete.dll
+
+5- Overwrite to [sitecore instance]\sitecore\shell\Applications\Content Manager\Default.aspx
+
+6- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicDelete.config
+
+7- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicItemsSelection.config
+
+8- [sitecore instance]\App_Config\Include\Feature\Hackathon.Feature.DynamicPublish.config
+
+9- [sitecore instance]\sitecore\shell\Applications\Content Manager\custom-multi-selection.js
 
 
-## Entry Submission Requirements 
+## Usage
 
-All teams are required to submit the following as part of their entry submission on or before the end of the Hackathon on **Friday March 1st 2019 at 8PM EST**. The modules should be based on [Sitecore 9.1 (Initial Release)](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/91/Sitecore_Experience_Platform_91_Initial_Release.aspx).
+In order to be able to use our module, install the following package using Sitecore Installation Wizard: “DynamicItemSelectionFeatures.zip”.
 
-**Failure to meet any of the requirements will result in automatic disqualification.** Please reach out to any of the organisers or judges if you require any clarification.
+You can start by navigating to the content editor, click on the “View tab”, and check the “Item Selector” checkbox in order to view the checkboxes next to the items in the content tree:
 
-- Sitecore 9.1 (Initial Release) Module (Module install package)
-   - An installation Sitecore Package (`.zip` or `.update`)
+![ItemSelectorSelected](documentation/images/ItemSelectorSelected.png?raw=true "Item Selector Selected")
 
-- Module code in a public Git source repository. We will be judging (amongst other things):
-  - Cleanliness of code
-  - Commenting where necessary
-  - Code Structure
-  - Standard coding standards & naming conventions
+There are two main functionalities implemented:
 
-- Precise and Clear Installation Instructions document (1 – 2 pages)
-- Module usage documentation on [Readme.md](documentation) file on the Git Repository (2 – 5 pages)
-  - Module Purpose
-  - Module Sitecore Hackathon Category
-  - How does the end user use the Module?
-  - Screenshots, etc.
+- Delete Selected Items:
 
-- Create a 2 – 10 minutes video explaining the module’s functionality (A link to youtube video)
+Select the items that you wish to delete, navigate to the home tab, and click on "Delete Selected Items", a confirmation popup appears, click on ok to delete or cancel to cancel the deletion.
 
-  - What problem was solved
-  - How did you solve it
-  - What is the end result
+Note: if you select the parent item to be deleted (i.e. Contacts), it will delete the children as well.
+
+![DeletingSelectedItemsFunctionality](documentation/images/DeletingSelectedItemsFunctionality.png?raw=true "Deleting Selected Items Functionality")
+
+If you click on "Delete Selected Items" without selecting any items, the following popup appears asking you to select items and retry:
+
+![PleaseSelectItems](documentation/images/PleaseSelectItems.png?raw=true "Please Select Items")
+
+- Publish Selected Items:
+
+Note: Before publishing any item, make sure that this item is in the final worklow (approved).
+
+Select the items that you wish to publish, navigate to the publish tab, and click on "Publish Selected Items" from the publish menu.
+
+![SelectItemsToPublish](documentation/images/SelectItemsToPublish.png?raw=true "Select Items To Publish")
+
+Once the publish is complete, the following popup appears showing the number of items processed (published):
+
+![PublishCompletedPopup](documentation/images/PublishCompletedPopup.png?raw=true "Publish Completed Popup")
+
+If you click on "Publish Selected Items" without selecting any items, the following popup appears asking you to select items and retry:
+
+![PleaseSelectItemsToPublish](documentation/images/PleaseSelectItemsToPublish.png?raw=true "Please Select Items To Publish")
+
+## Video
+
+Following is a youtube video that explains our feature:
+
+[![Sitecore Hackathon Video Embedding Alt Text](https://img.youtube.com/vi/C0EEo8V9PUI/0.jpg)](https://www.youtube.com/watch?v=C0EEo8V9PUI)
